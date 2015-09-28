@@ -129,7 +129,7 @@
 {
 	CGRect viewRect = CGRectZero; viewRect.size = scrollView.bounds.size;
 
-	viewRect.origin.x = (viewRect.size.width * (page - 1)); viewRect = CGRectInset(viewRect, scrollViewOutset, 0.0f);
+	viewRect.origin.x = (viewRect.size.width * (maximumPage - page)); viewRect = CGRectInset(viewRect, scrollViewOutset, 0.0f);
 
 	NSURL *fileURL = document.fileURL; NSString *phrase = document.password; NSString *guid = document.guid; // Document properties
 
@@ -144,7 +144,7 @@
 {
 	CGFloat viewWidth = scrollView.bounds.size.width; // View width
 
-	CGFloat contentOffsetX = scrollView.contentOffset.x; // Content offset X
+	CGFloat contentOffsetX = scrollView.contentSize.width - scrollView.contentOffset.x; // Content offset X
 
 	NSInteger pageB = ((contentOffsetX + viewWidth - 1.0f) / viewWidth); // Pages
 

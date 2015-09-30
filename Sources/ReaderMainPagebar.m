@@ -99,7 +99,7 @@
 
 		CGFloat stride = (useableWidth / (pages - 1)); // Page stride
 
-		NSInteger X = (stride * (page - 1)); CGFloat pageThumbX = X;
+		NSInteger X = (stride * (pages - page + 1)); CGFloat pageThumbX = X;
 
 		CGRect pageThumbRect = pageThumbView.frame; // Current frame
 
@@ -271,7 +271,7 @@
 	{
 		CGFloat heightDelta = (controlRect.size.height - THUMB_LARGE_HEIGHT);
 
-		NSInteger thumbY = (heightDelta * 0.5f); NSInteger thumbX = 0; // Thumb X, Y
+		NSInteger thumbY = (heightDelta * 0.5f); NSInteger thumbX = controlWidth - THUMB_LARGE_WIDTH; // Thumb X, Y
 
 		CGRect thumbRect = CGRectMake(thumbX, thumbY, THUMB_LARGE_WIDTH, THUMB_LARGE_HEIGHT);
 
@@ -290,7 +290,7 @@
 
 	CGFloat heightDelta = (controlRect.size.height - THUMB_SMALL_HEIGHT);
 
-	NSInteger thumbY = (heightDelta * 0.5f); NSInteger thumbX = 0; // Initial X, Y
+	NSInteger thumbY = (heightDelta * 0.5f); NSInteger thumbX = controlWidth - THUMB_SMALL_WIDTH; // Initial X, Y
 
 	CGRect thumbRect = CGRectMake(thumbX, thumbY, THUMB_SMALL_WIDTH, THUMB_SMALL_HEIGHT);
 
@@ -330,7 +330,7 @@
 			}
 		}
 
-		thumbRect.origin.x += thumbWidth; // Next thumb X position
+		thumbRect.origin.x -= thumbWidth; // Next thumb X position
 	}
 
 	[thumbsToHide enumerateKeysAndObjectsUsingBlock: // Hide unused thumbs
@@ -433,7 +433,7 @@
 
 	CGFloat stride = (controlWidth / [document.pageCount integerValue]);
 
-	NSInteger page = (trackView.value / stride); // Integer page number
+	NSInteger page = ((controlWidth - trackView.value) / stride); // Integer page number
 
 	return (page + 1); // + 1
 }

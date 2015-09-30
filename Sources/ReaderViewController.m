@@ -105,7 +105,7 @@
 
 			CGRect viewRect = CGRectZero; viewRect.size = scrollView.bounds.size;
 
-			viewRect.origin.x = (viewRect.size.width * (page - 1)); // Update X
+			viewRect.origin.x = (viewRect.size.width * (maximumPage - page)); // Update X
 
 			contentView.frame = CGRectInset(viewRect, scrollViewOutset, 0.0f);
 		}
@@ -113,7 +113,7 @@
 
 	NSInteger page = currentPage; // Update scroll view offset to current page
 
-	CGPoint contentOffset = CGPointMake((scrollView.bounds.size.width * (page - 1)), 0.0f);
+	CGPoint contentOffset = CGPointMake((scrollView.bounds.size.width * (maximumPage - page)), 0.0f);
 
 	if (CGPointEqualToPoint(scrollView.contentOffset, contentOffset) == false) // Update
 	{
@@ -206,7 +206,7 @@
 {
 	CGFloat viewWidth = scrollView.bounds.size.width; // Scroll view width
 
-	CGFloat contentOffsetX = scrollView.contentOffset.x; // Content offset X
+	CGFloat contentOffsetX = scrollView.contentSize.width - scrollView.contentOffset.x; // Content offset X
 
 	NSInteger page = (contentOffsetX / viewWidth); page++; // Page number
 
@@ -235,7 +235,7 @@
 
 		currentPage = page; document.pageNumber = [NSNumber numberWithInteger:page];
 
-		CGPoint contentOffset = CGPointMake((theScrollView.bounds.size.width * (page - 1)), 0.0f);
+		CGPoint contentOffset = CGPointMake((theScrollView.bounds.size.width * (maximumPage - page)), 0.0f);
 
 		if (CGPointEqualToPoint(theScrollView.contentOffset, contentOffset) == true)
 			[self layoutContentViews:theScrollView];
@@ -530,7 +530,7 @@
 	{
 		CGPoint contentOffset = theScrollView.contentOffset; // Offset
 
-		contentOffset.x -= theScrollView.bounds.size.width; // View X--
+		contentOffset.x += theScrollView.bounds.size.width; // View X--
 
 		[theScrollView setContentOffset:contentOffset animated:YES];
 	}
@@ -542,7 +542,7 @@
 	{
 		CGPoint contentOffset = theScrollView.contentOffset; // Offset
 
-		contentOffset.x += theScrollView.bounds.size.width; // View X++
+		contentOffset.x -= theScrollView.bounds.size.width; // View X++
 
 		[theScrollView setContentOffset:contentOffset animated:YES];
 	}
@@ -621,7 +621,7 @@
 
 		if (CGRectContainsPoint(nextPageRect, point) == true) // page++
 		{
-			[self incrementPageNumber]; return;
+			[self decrementPageNumber]; return;
 		}
 
 		CGRect prevPageRect = viewRect;
@@ -629,7 +629,7 @@
 
 		if (CGRectContainsPoint(prevPageRect, point) == true) // page--
 		{
-			[self decrementPageNumber]; return;
+			[self incrementPageNumber]; return;
 		}
 	}
 }

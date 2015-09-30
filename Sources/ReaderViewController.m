@@ -670,9 +670,9 @@
 		nextPageRect.size.width = TAP_AREA_SIZE;
 		nextPageRect.origin.x = (viewRect.size.width - TAP_AREA_SIZE);
 
-		if (CGRectContainsPoint(nextPageRect, point) == true) // page++
+		if (CGRectContainsPoint(nextPageRect, point) == true) // page--
 		{
-			[self incrementPageNumber]; return;
+			[self decrementPageNumber]; return;
 		}
 
 		CGRect prevPageRect = viewRect;
@@ -680,7 +680,7 @@
 
 		if (CGRectContainsPoint(prevPageRect, point) == true) // page--
 		{
-			[self decrementPageNumber]; return;
+			[self incrementPageNumber]; return;
 		}
 	}
 }
